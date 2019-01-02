@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>chelun-jsbridge</title>
+    <link rel="stylesheet" href="css/basic.css"/>
+    <link rel="stylesheet" href="css/frozen.css"/>
+    <link rel="stylesheet" href="css/demo.css"/>
+    <script src="api-2.0.js"></script>
+    <script src="api-2.0-component.js"></script>
+</head>
+<body>
+    <header class="ui-header ui-header-positive ui-border-b">
+        <h1>查违章专用接口</h1>
+    </header>
+    <!--hadEncounteredViolation-->
+    <section class="ui-container">
+        <p class="demo-desc">1. 根据车牌号查询车辆是否违章</p>
+        <div class="ui-demo-tips">chelunJSBridge://cwz/hadEncounteredViolation</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>carNo</td>
+                    <td>车牌号</td>
+                </tr>
+                <tr>
+                    <td>carType</td>
+                    <td>大型车小型车</td>
+                </tr>
+                <tr>
+                    <td>violationCallBackName</td>
+                    <td>绑定回调</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">violationCallBackName中返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>result</td>
+                    <td>1查询成功 -1 不成功</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>如果查询不成功请返回具体不成功的原因，比如没有绑定发动机号</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="hadEncounteredViolation">查询违章</button>
+        </div>
+    </section>
+    <!--hadEncounteredViolation END-->
+    <!--fetchCarList-->
+    <section class="ui-container">
+        <p class="demo-desc">2. 查询当前用户绑定的车辆信息列表,最多5辆车</p>
+        <div class="ui-demo-tips">chelunJSBridge://cwz/fetchCarList</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>fetchCallBackName</td>
+                    <td>绑定回调</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">fetchCallBackName中返回参数data内数组carList</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">carList每一项的内容：</td>
+                </tr>
+                <tr>
+                    <td>carNo</td>
+                    <td>车牌号</td>
+                </tr>
+                <tr>
+                    <td>carType</td>
+                    <td>大型车/小型车</td>
+                </tr>
+                <tr>
+                    <td>carTypeId</td>
+                    <td>车型ID</td>
+                </tr>
+                <tr>
+                    <td>carImag</td>
+                    <td>车辆照片URL</td>
+                </tr>
+                <tr>
+                    <td>weizhang</td>
+                    <td>违章数</td>
+                </tr>
+                <tr>
+                    <td>fakuan</td>
+                    <td>罚款数</td>
+                </tr>
+                <tr>
+                    <td>koufen</td>
+                    <td>扣分数</td>
+                </tr>
+                <tr>
+                    <td>carNo</td>
+                    <td>车牌号</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="fetchCarList">查询违章</button>
+        </div>
+    </section>
+    <!--fetchCarList END-->
+    <!--addCar-->
+    <section class="ui-container">
+        <p class="demo-desc">3. 添加车辆信息</p>
+        <div class="ui-demo-tips">chelunJSBridge://cwz/addCar</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>addCallBackName</td>
+                    <td>绑定回调</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="addCar">添加车辆</button>
+        </div>
+    </section>
+    <!--addCar END-->
+
+    <script>
+        /**
+         * 根据车牌号查询车辆是否违章
+         */
+        var hadEncounteredViolation = document.getElementById('hadEncounteredViolation');
+        hadEncounteredViolation.addEventListener('click', function() {
+            var attrs = {carNo:'鄂B83710', carType:'小型车'};
+            attrs['violationCallBackName'] = function(json) {
+                alert(json.message);
+            };
+            chelunJSBridge.invoke('cwz', 'hadEncounteredViolation', attrs);
+        }, false);
+
+        /**
+         * 查询当前用户绑定的车辆信息列表,最多5辆车
+         */
+        var fetchCarList = document.getElementById('fetchCarList');
+        fetchCarList.addEventListener('click', function() {
+            var attrs = {};
+            attrs['fetchCallBackName'] = function(json) {
+                alert(json.data.fetchCarList);
+            };
+            chelunJSBridge.invoke('cwz', 'fetchCarList', attrs);
+        }, false);
+
+        /**
+         * 添加车辆信息
+         */
+        var addCar = document.getElementById('addCar');
+        addCar.addEventListener('click', function() {
+            var attrs = {};
+            attrs['addCar'] = function(json) {
+                alert('添加车辆回调成功');
+            };
+            chelunJSBridge.invoke('cwz', 'addCar', attrs);
+        }, false);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>chelun-jsbridge</title>
+    <link rel="stylesheet" href="css/basic.css"/>
+    <link rel="stylesheet" href="css/frozen.css"/>
+    <link rel="stylesheet" href="css/demo.css"/>
+    <script src="api-2.0.js"></script>
+    <script src="api-2.0-component.js"></script>
+</head>
+<body>
+    <header class="ui-header ui-header-positive ui-border-b">
+        <h1>通用接口列表</h1>
+    </header>
+    <!--login-->
+    <section class="ui-container">
+        <h1 class="ui-demo-h1">一、namespace=app</h1>
+        <p class="demo-desc">1. 唤醒APP登录</p>
+        <div class="ui-demo-tips">chelunJSBridge://app/login</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>loginCallBackName</td>
+                    <td>点击登录按钮之后的回调</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">loginCallBackName中返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>result</td>
+                    <td>1 登录成功/其他 取消登录</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>描述</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{token: '' ,uid:'',nickname:'',avatar:'头像地址'}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="login">登录</button>
+        </div>
+    </section>
+    <!--login END-->
+    <!--isAppInstalled-->
+    <section class="ui-container">
+        <p class="demo-desc">2. 查询单个应用是否已安装<a href="http://doc.oa.com/pages/viewpage.action?pageId=6522474">（包名查询）</a></p>
+        <div class="ui-demo-tips">chelunJSBridge://app/isAppInstalled</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>os</td>
+                    <td>ios/android</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>IOS传scheme android传包名</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">callback中返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>result</td>
+                    <td>1 成功</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>描述</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{code:1安装 -1未安装 }</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="isAppInstalled">判断安装</button>
+        </div>
+    </section>
+    <!--isAppInstalled END-->
+    <!--launchApp-->
+    <section class="ui-container">
+        <p class="demo-desc">3. 使用scheme(ios)或者包名(andorid)启动一个app</p>
+        <div class="ui-demo-tips">chelunJSBridge://app/launchApp</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>IOS传scheme android传包名</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">callback中返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{code:1安装 -1未安装 }</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="launchApp">启动APP</button>
+        </div>
+    </section>
+    <!--launchApp END-->
+    <!--openSchema-->
+    <section class="ui-container">
+        <p class="demo-desc">4. 打开schema<a href="http://doc.oa.com/pages/viewpage.action?pageId=4526758">（客户端支持的链接格式）</a></p>
+        <div class="ui-demo-tips">chelunJSBridge://app/openSchema</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+            <tr>
+                <td>schema</td>
+                <td>带协议的链接</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">callback中返回的参数：</td>
+            </tr>
+            <tr>
+                <td>data</td>
+                <td>{code:1打开成功 -1打开失败 }</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="openSchema">打开schema</button>
+        </div>
+    </section>
+    <!--openSchema END-->
+    <!--closeWebView-->
+    <section class="ui-container">
+        <p class="demo-desc">5. 关闭当前web页面</p>
+        <div class="ui-demo-tips">chelunJSBridge://app/closeWebView</div>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="closeWebView">关闭web页面</button>
+        </div>
+    </section>
+    <!--closeWebView END-->
+    <!--fetch-->
+    <section class="ui-container">
+        <p class="demo-desc">6. 网络请求接口（GET）</p>
+        <div class="ui-demo-tips">chelunJSBridge://app/fetch</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+            <tr>
+                <td>params</td>
+                <td>json格式</td>
+            </tr>
+            <tr>
+                <td>headers</td>
+                <td>json格式</td>
+            </tr>
+            <tr>
+                <td>fetchCallbackName</td>
+                <td>回调函数</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">fetchCallbackName中返回的参数：</td>
+            </tr>
+            <tr>
+                <td>data</td>
+                <td>{body: response body}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="fetch">GET请求接口</button>
+        </div>
+    </section>
+    <!--fetch END-->
+    <!--netStatus-->
+    <section class="ui-container">
+        <p class="demo-desc">7. 获取网络状态</p>
+        <div class="ui-demo-tips">chelunJSBridge://app/netStatus</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">callback中返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{code: 1 移动网络 2 WIFI -1没有获取到}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="netStatus">网络状态</button>
+        </div>
+    </section>
+    <!--netStatus END-->
+    <!--pay-->
+    <section class="ui-container">
+        <p class="demo-desc">8. 唤起app支付</p>
+        <div class="ui-demo-tips">chelunJSBridge://app/pay</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>price</td>
+                    <td>价格</td>
+                </tr>
+                <tr>
+                    <td>orderNum</td>
+                    <td>订单号</td>
+                </tr>
+                <tr>
+                    <td>channels</td>
+                    <td>支付渠道 weixin,alipay</td>
+                </tr>
+                <tr>
+                    <td>callbackUrl</td>
+                    <td>回调网址，需要提前encode 支付后会跳转带上支付状态，参数名 status {0失败，1成功} (第三方使用)</td>
+                </tr>
+                <tr>
+                    <td>payCallback</td>
+                    <td>支付结束后回调 {result: 1，或其他值表示失败 }  （前端SDK使用）</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="pay">支付</button>
+        </div>
+    </section>
+    <!--pay END-->
+
+    <!--shareMessage-->
+    <section class="ui-container">
+        <h1 class="ui-demo-h1">二、namespace=ui</h1>
+        <p class="demo-desc">1. 使用native分享接口, 需要将分享的内容提前设置到window全局变量中</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/shareMessage?to=clMessage</p>
+            <h6 class="ui-txt-info">将to的参数替换就会变成其它分享</h6>
+            <h6 class="ui-txt-info">clMessage：车轮车友，wxTimeline：微信朋友圈</h6>
+            <h6 class="ui-txt-info">wxMessage：微信好友，qq:QQ，sina：新浪微博，sms：短信</h6>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>to</td>
+                    <td>分享渠道</td>
+                </tr>
+                <tr>
+                    <td>shareCallBackName</td>
+                    <td>分享之后的回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">shareCallBackName中返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>result</td>
+                    <td>1 成功</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>描述</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="shareMessage">分享</button>
+        </div>
+    </section>
+    <!--shareMessage END-->
+    <!--openWithBrowser-->
+    <section class="ui-container">
+        <p class="demo-desc">2. 使用浏览器打开</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/openWithBrowser</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>url</td>
+                    <td>网址，需要提前encode</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="openWithBrowser">浏览器打开</button>
+        </div>
+    </section>
+    <!--openWithBrowser END-->
+    <!--refresh-->
+    <section class="ui-container">
+        <p class="demo-desc">3. 使用native刷新</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/refresh</p>
+        </div>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="refresh">本地刷新</button>
+        </div>
+    </section>
+    <!--refresh END-->
+    <!--bindWeixin-->
+    <section class="ui-container">
+        <p class="demo-desc">4. 使用native绑定微信</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/bindWeixin</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+            <tr>
+                <td>bindCallBackName</td>
+                <td>回调函数</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="bindWeixin">绑定微信</button>
+        </div>
+    </section>
+    <!--bindWeixin END-->
+    <!--bindPhone-->
+    <section class="ui-container">
+        <p class="demo-desc">5. 使用native绑定手机号</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/bindPhone</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>bindCallBackName</td>
+                    <td>回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">bindCallBackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{phone:手机号}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan"><h6 class="ui-txt-info">如果用户已经绑定了手机号，那客户端直接调用callback函数</h6></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="bindPhone">绑定手机</button>
+        </div>
+    </section>
+    <!--bindPhone END-->
+    <!--scanQRCode-->
+    <section class="ui-container">
+        <p class="demo-desc">6. 二维码扫描</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/scanQRCode</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>scanCallBackName</td>
+                    <td>回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">scanCallBackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{value:扫描出来的内容}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="scanQRCode">二维码扫描</button>
+        </div>
+    </section>
+    <!--scanQRCode END-->
+    <!--copy-->
+    <section class="ui-container">
+        <p class="demo-desc">7. 复制文字到剪切版</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/copy</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>text</td>
+                    <td>需要复制的内容</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="copy">复制文字</button>
+        </div>
+    </section>
+    <!--copy END-->
+    <!--showTitleBar-->
+    <section class="ui-container">
+        <p class="demo-desc">8. 显示隐藏标题栏</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/showTitleBar</div>
+        <div class="ui-demo-tips">chelunJSBridge://ui/hideTitleBar</div>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="showTitleBar">显示标题栏</button>
+            <button class="ui-btn ui-btn-danger" type="button" id="hideTitleBar">隐藏标题栏</button>
+        </div>
+    </section>
+    <!--showTitleBar END-->
+    <!--vibration-->
+    <section class="ui-container">
+        <p class="demo-desc">9. 触发震动</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/vibration</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>milliseconds</td>
+                    <td>时长</td>
+                </tr>
+                <tr>
+                    <td>vibrationCallbackName</td>
+                    <td>回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">vibrationCallbackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>result</td>
+                    <td>1：结束</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="vibration">震动3秒</button>
+        </div>
+    </section>
+    <!--vibration END-->
+    <!--shakeItOff-->
+    <section class="ui-container">
+        <p class="demo-desc">10. 摇一摇</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://ui/shakeItOff</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+            <tr>
+                <td>shakeCallbackName</td>
+                <td>回调函数</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">shakeCallbackName返回的参数：</td>
+            </tr>
+            <tr>
+                <td>result</td>
+                <td>1：结束</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="shakeItOff">摇一摇</button>
+        </div>
+    </section>
+    <!--shakeItOff END-->
+    <!--datepicker-->
+    <section class="ui-container">
+        <p class="demo-desc">11. 日期选择控件</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/datepicker</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>minDate</td>
+                    <td style="text-align: left">
+                        最小日期
+                        <p>由yyyy-mm-dd表示 系统默认</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>maxDate</td>
+                    <td style="text-align: left">
+                        最大日期
+                        <p>由yyyy-mm-dd表示 系统默认</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>curDate</td>
+                    <td style="text-align: left">
+                        选中日期
+                        <p>由yyyy-mm-dd表示 默认当前日期</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>pickCallbackName</td>
+                    <td>回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">pickCallbackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>
+                        {date:'2015-05-05'}
+                        <p>如格式 yyyy-mm-dd 匹配 2016-05-03</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="datepicker">日期选择</button>
+        </div>
+    </section>
+    <!--datepicker END-->
+    <!--timepicker-->
+    <section class="ui-container">
+        <p class="demo-desc">12. 时间选择控件</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/timepicker</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>minTime</td>
+                    <td style="text-align: left">
+                        最小时间
+                        <p>由h:i表示 系统默认</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>maxTime</td>
+                    <td style="text-align: left">
+                        最大时间
+                        <p>最大日期，由h:i表示 系统默认</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>curTime</td>
+                    <td style="text-align: left">
+                        选中时间
+                        <p>由h:i表示 默认当前时间</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>pickCallbackName</td>
+                    <td>回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">pickCallbackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>
+                        {date:'12:33'}
+                        <p>如格式h:i 匹配11:40</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="timepicker">时间选择</button>
+        </div>
+    </section>
+    <!--timepicker END-->
+    <!--pullRefresh-->
+    <section class="ui-container">
+        <p class="demo-desc">13. 下拉刷新控件</p>
+        <p>注：客户端只提供UI和交互效果，刷新逻辑由H5自行控制</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/pullRefresh</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>isRefresh</td>
+                    <td style="text-align: left">
+                        <p>true：开启刷新</p>
+                        <p>false：关闭刷新</p>
+                        <p>当刷新完成后可发起关闭下拉刷新效果的请求</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>onRefreshCallback</td>
+                    <td>回调函数</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">onRefreshCallback返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>result</td>
+                    <td>1：结束</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="pullRefresh">下拉刷新</button>
+        </div>
+    </section>
+    <!--pullRefresh END-->
+    <!--openInnerBrowser-->
+    <section class="ui-container">
+        <p class="demo-desc">14. 使用内部浏览器打开</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/openInnerBrowser</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>url</td>
+                    <td>
+                        网址，需要提前encode
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="openInnerBrowser">打开页面</button>
+        </div>
+    </section>
+    <!--openInnerBrowser END-->
+    <!--setTitle-->
+    <section class="ui-container">
+        <p class="demo-desc">15. 修改标题</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/setTitle</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+            <tr>
+                <td>title</td>
+                <td>
+                    标题
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="setTitle">修改标题</button>
+        </div>
+    </section>
+    <!--setTitle END-->
+    <!--setTitleBarMenu-->
+    <section class="ui-container">
+        <p class="demo-desc">16. 添加标题栏右上角按钮 （替换原有的按钮）</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/setTitleBarMenu</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+                <tr>
+                    <td>btnTitle</td>
+                    <td>
+                        按钮文案
+                    </td>
+                </tr>
+                <tr>
+                    <td>btnImg</td>
+                    <td>
+                        按钮图片 外网可以访问的图片url，100*100即可 图片与文案取其一
+                    </td>
+                </tr>
+                <tr>
+                    <td>callbackFun</td>
+                    <td>点击按钮响应的函数 （开放给第三方使用，前端SDK忽略此参数）</td>
+                </tr>
+                <tr>
+                    <td>clickCallback</td>
+                    <td>点击按钮响应（前端SDK使用）</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="setTitleBarMenu">替换按钮</button>
+        </div>
+    </section>
+    <!--setTitleBarMenu END-->
+    <!--scanCarNo-->
+    <section class="ui-container">
+        <p class="demo-desc">17. 扫描车牌</p>
+        <div class="ui-demo-tips">chelunJSBridge://ui/scanCarNo</div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+            </tr>
+            <tr>
+                <td>needUpload</td>
+                <td>
+                    是否需要上传图片
+                </td>
+            </tr>
+            <tr>
+                <td>scanCallBackName</td>
+                <td>｛result: 1扫描成功, data : { carNo:'陕a440u9', transId: "DJUe343432DF"}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="scanCarNo">扫描</button>
+        </div>
+    </section>
+    <!--scanCarNo END-->
+
+    <!--hadBoundPhone-->
+    <section class="ui-container">
+        <h1 class="ui-demo-h1">三、namespace=data</h1>
+        <p class="demo-desc">1. 查询是否绑定手机号</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://data/hadBoundPhone</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{code:1已绑定 -1未绑定}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="hadBoundPhone">是否绑定手机</button>
+        </div>
+    </section>
+    <!--hadBoundPhone END-->
+    <!--verifyToken-->
+    <section class="ui-container">
+        <p class="demo-desc">2. 强制客户端到服务端验证token（loading由前端处理），成功或失败都会回调</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://data/verifyToken</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>verifyCallbackName</td>
+                    <td>绑定回调</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">verifyCallbackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{token:有效则返回，前端更新token为此token}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="verifyToken">验证token</button>
+        </div>
+    </section>
+    <!--verifyToken END-->
+    <!--chooseImage-->
+    <section class="ui-container">
+        <h1 class="ui-demo-h1">四、namespace=device</h1>
+        <p class="demo-desc">1. 选取图片 ，目前只支持单张图片</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://device/chooseImage</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td><p>0 同时拍照和相册选择【默认】</p>1 拍照 2相册选择</td>
+                </tr>
+                <tr>
+                    <td>chooseCallbackName</td>
+                    <td>绑定回调</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">chooseCallbackName返回的参数：</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>{url:图片url}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="chooseImage">上传图片</button>
+        </div>
+    </section>
+    <!--chooseImage END-->
+    <!--getLocation-->
+    <section class="ui-container">
+        <p class="demo-desc">2. 获取定位</p>
+        <div class="ui-demo-tips">
+            <p>chelunJSBridge://device/getLocation</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">传递的参数：</td>
+                </tr>
+                <tr>
+                    <td>locationCallBackName</td>
+                    <td>绑定回调</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">locationCallBackName返回参数data的内容：</td>
+                </tr>
+                <tr>
+                    <td>gcjLat</td>
+                    <td>纬度</td>
+                </tr>
+                <tr>
+                    <td>gcjLng</td>
+                    <td>经度</td>
+                </tr>
+                <tr>
+                    <td>gaodCityCode</td>
+                    <td>高德城市编号</td>
+                </tr>
+                <tr>
+                    <td>gdAdCode</td>
+                    <td>高德省份编号</td>
+                </tr>
+                <tr>
+                    <td>country</td>
+                    <td>国家</td>
+                </tr>
+                <tr>
+                    <td>province</td>
+                    <td>省份</td>
+                </tr>
+                <tr>
+                    <td>city</td>
+                    <td>城市</td>
+                </tr>
+                <tr>
+                    <td>district</td>
+                    <td>区、县</td>
+                </tr>
+                <tr>
+                    <td>address</td>
+                    <td>地址</td>
+                </tr>
+                <tr>
+                    <td>fullAddressOnlyCity</td>
+                    <td>从城市开始的完整地址</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="getLocation">定位</button>
+        </div>
+    </section>
+    <!--getLocation END-->
+
+    <script>
+        var share_url = 'http://app.qq.com/#id=detail&appid=100733767';
+        var cookies = chelunApi.cookie();
+        var osType = cookies['chelun_osType'] == 'ios'? 'ios': 'android';
+        var package = osType=='ios' ? 'chelun' : 'cn.eclicks.chelun';
+
+        //----------------------------namespace=app------------------------------------------------
+        /**
+         * 登录
+         */
+        var login = document.getElementById('login');
+        login.addEventListener('click', function() {
+            var attrs = {};
+            //登录后的回调
+            attrs['loginCallBackName'] = function(json) {
+                alert('登录回调成功');
+            };
+            chelunJSBridge.invoke('app', 'login', attrs);
+        }, false);
+
+        /**
+         * 查询单个应用是否已安装
+         */
+        var isAppInstalled = document.getElementById('isAppInstalled');
+        isAppInstalled.addEventListener('click', function() {
+            var attrs = {os:osType, name: package};
+            attrs['callback'] = function(json) {
+              alert(json.data.code);
+            };
+            chelunJSBridge.invoke('app', 'isAppInstalled', attrs);
+        }, false);
+
+        /**
+         * 使用 scheme(ios)  或者 包名(andorid)启动一个app
+         */
+        var launchApp = document.getElementById('launchApp');
+        launchApp.addEventListener('click', function() {
+            var attrs = {name:package};
+            attrs['callback'] = function(json) {
+                alert(json.data.code);
+            };
+            chelunJSBridge.invoke('app', 'launchApp', attrs);
+        }, false);
+        /**
+         * 打开schema
+         */
+        var openSchema = document.getElementById('openSchema');
+        openSchema.addEventListener('click', function() {
+            var attrs = {schema:'chelun://topic/open/123'};
+            attrs['callback'] = function(json) {
+                alert(json.data.code);
+            };
+            chelunJSBridge.invoke('app', 'openSchema', attrs);
+        }, false);
+        /**
+         * 关闭web页面
+         */
+        var closeWebView = document.getElementById('closeWebView');
+        closeWebView.addEventListener('click', function() {
+            chelunJSBridge.invoke('app', 'closeWebView');
+        }, false);
+
+        /**
+         * 网络请求接口（GET）
+         */
+        var fetch = document.getElementById('fetch');
+        fetch.addEventListener('click', function() {
+            var attrs = {
+                params: JSON.stringify({id:'1'}),
+                headers:JSON.stringify({action:'get'}),
+                url:'http://cwzapptest.eclicks.cn/toolbox/badge_list?app=QueryViolations&appVersion=5.8.5&os=Android&keys=qichetoutiao%2Cchepaicejixiong%2Cqichedaikuan%2Cchepaidaipai&systemVersion=6.0.1&appChannel=product&token=u10000362_419257_8EX5GmAXkl3GAWEB&ac_token=u10000362_419257_8EX5GmAXkl3GAWEB&appid=1&cUDID=355499060902207&model=Nexus6&openUDID=fc7bc814-90a4-3304-8841-b373ef5a6b46&sign=7b5c87eb58988606e95399914a3d27e5'
+            };
+            attrs['fetchCallbackName'] = function(json) {
+                alert(json.data.body.substr(0,10));
+            };
+            chelunJSBridge.invoke('app', 'fetch', attrs);
+        }, false);
+
+        /**
+         * 获取网络状态
+         */
+        var netStatus = document.getElementById('netStatus');
+        netStatus.addEventListener('click', function() {
+            var attrs = {};
+            attrs['callback'] = function(json) {
+                alert(json.data.code);
+            };
+            chelunJSBridge.invoke('app', 'netStatus', attrs);
+        }, false);
+        /**
+         * 唤起app支付
+         */
+        var pay = document.getElementById('pay');
+        pay.addEventListener('click', function() {
+            var attrs = {price:0.01, orderNum:'1001','channels':'alipay'};
+            attrs['payCallback'] = function(json) {
+                alert('payCallback');
+            };
+            chelunJSBridge.invoke('app', 'pay', attrs);
+        }, false);
+
+        //----------------------------namespace=ui------------------------------------------------
+        /**
+         * 使用native分享接口
+         */
+        var shareMessage = document.getElementById('shareMessage');
+        shareMessage.addEventListener('click', function() {
+            var attrs = {to:'wxTimeline'};
+            chelunJSBridge.invoke('ui', 'shareMessage', attrs);
+        }, false);
+
+        /**
+         * 使用浏览器打开
+         */
+        var openWithBrowser = document.getElementById('openWithBrowser');
+        openWithBrowser.addEventListener('click', function() {
+            var attrs = {url:share_url};
+            chelunJSBridge.invoke('ui', 'openWithBrowser', attrs);
+        }, false);
+
+        /**
+         * 使用native刷新
+         */
+        var refresh = document.getElementById('refresh');
+        refresh.addEventListener('click', function() {
+            chelunJSBridge.invoke('ui', 'refresh');
+        }, false);
+
+        /**
+         * 使用native绑定微信
+         */
+        var bindWeixin = document.getElementById('bindWeixin');
+        bindWeixin.addEventListener('click', function() {
+            var attrs = {};
+            attrs['bindCallBackName'] = function(json) {//绑定微信后的回调
+                alert('绑定微信回调成功');
+            };
+            chelunJSBridge.invoke('ui', 'bindWeixin', attrs);
+        }, false);
+
+
+        /**
+         * 使用native绑定手机号
+         */
+        var bindPhone = document.getElementById('bindPhone');
+        bindPhone.addEventListener('click', function() {
+            var attrs = {};
+            attrs['bindCallBackName'] = function(json) {
+                alert('绑定手机回调成功');
+            };
+            chelunJSBridge.invoke('ui', 'bindPhone', attrs);
+        }, false);
+
+        /**
+         * 二维码扫描
+         */
+        var scanQRCode = document.getElementById('scanQRCode');
+        scanQRCode.addEventListener('click', function() {
+            var attrs = {};
+            attrs['scanCallBackName'] = function(json) {
+                alert(json.data.value);
+            };
+            chelunJSBridge.invoke('ui', 'scanQRCode', attrs);
+        }, false);
+
+        /**
+         * 复制文字到剪切版
+         */
+        var copy = document.getElementById('copy');
+        copy.addEventListener('click', function() {
+            var attrs = {'text':'复制文字到剪切版'};
+            attrs['callback'] = function(json) {
+                alert('复制成功');
+            };
+            chelunJSBridge.invoke('ui', 'copy', attrs);
+        }, false);
+
+        /**
+         * 显示标题栏
+         */
+        var showTitleBar = document.getElementById('showTitleBar');
+        showTitleBar.addEventListener('click', function() {
+            chelunJSBridge.invoke('ui', 'showTitleBar');
+        }, false);
+
+        /**
+         * 隐藏标题栏
+         */
+        var hideTitleBar = document.getElementById('hideTitleBar');
+        hideTitleBar.addEventListener('click', function() {
+            chelunJSBridge.invoke('ui', 'hideTitleBar');
+        }, false);
+
+        /**
+         * 震动3秒
+         */
+        var vibration = document.getElementById('vibration');
+        vibration.addEventListener('click', function() {
+            var attrs = {'milliseconds':3000};
+            attrs['vibrationCallbackName'] = function(json) {
+                alert('震动3秒');
+            };
+            chelunJSBridge.invoke('ui', 'vibration', attrs);
+        }, false);
+
+        /**
+         * 摇一摇
+         */
+        var shakeItOff = document.getElementById('shakeItOff');
+        shakeItOff.addEventListener('click', function() {
+            var attrs = {};
+            attrs['shakeCallbackName'] = function(json) {
+                alert('摇一摇');
+            };
+            chelunJSBridge.invoke('ui', 'shakeItOff', attrs);
+        }, false);
+
+        /**
+         * 日期选择
+         */
+        var datepicker = document.getElementById('datepicker');
+        datepicker.addEventListener('click', function() {
+            var attrs = {minDate:'2016-05-01', maxDate:'2016-05-30', curDate:'2016-05-11'};
+            attrs['pickCallbackName'] = function(json) {
+                alert(json.data.date);
+            };
+            chelunJSBridge.invoke('ui', 'datepicker', attrs);
+        }, false);
+
+        /**
+         * 时间选择
+         */
+        var timepicker = document.getElementById('timepicker');
+        timepicker.addEventListener('click', function() {
+            var attrs = {minTime:'09:10', maxTime:'16:52', curTime:'14:16'};
+            attrs['pickCallbackName'] = function(json) {
+                alert(json.data.date);
+            };
+            chelunJSBridge.invoke('ui', 'timepicker', attrs);
+        }, false);
+
+        /**
+         * 下拉刷新
+         */
+        var pullRefresh = document.getElementById('pullRefresh');
+        pullRefresh.addEventListener('click', function() {
+            var attrs = {isRefresh:true};
+            attrs['onRefreshCallback'] = function(json) {
+                alert('下拉刷新成功');
+                chelunJSBridge.invoke('ui', 'pullRefresh', {isRefresh:false});
+            };
+            chelunJSBridge.invoke('ui', 'pullRefresh', attrs);
+        }, false);
+        /**
+         * 使用内部浏览器打开
+         */
+        var openInnerBrowser = document.getElementById('openInnerBrowser');
+        openInnerBrowser.addEventListener('click', function() {
+            var attrs = {url:"http://www.chelun.com?xx="+ encodeURIComponent('测试')};
+            chelunJSBridge.invoke('ui', 'openInnerBrowser', attrs);
+        }, false);
+        /**
+         * 修改标题
+         */
+        var setTitle = document.getElementById('setTitle');
+        setTitle.addEventListener('click', function() {
+            var attrs = {title:'测试标题'};
+            chelunJSBridge.invoke('ui', 'setTitle', attrs);
+        }, false);
+        /**
+         * 添加标题栏右上角按钮 （替换原有的按钮）
+         */
+        var setTitleBarMenu = document.getElementById('setTitleBarMenu');
+        setTitleBarMenu.addEventListener('click', function() {
+            var callbackFun = function() {
+              alert('callbackFun');
+            };
+
+            var attrs = {
+                btnTitle:'测试按钮'
+                //btnImg:'http://img.file.chelun.com/g1/img/p/czwimg/ic_launcher.png',
+            };
+            attrs['clickCallback'] = function() {
+                alert('clickCallback');
+            };
+            chelunJSBridge.invoke('ui', 'setTitleBarMenu', attrs);
+        }, false);
+        /**
+         * 扫描车牌
+         */
+        var scanCarNo = document.getElementById('scanCarNo');
+        scanCarNo.addEventListener('click', function() {
+            var attrs = {
+                needUpload: false
+            };
+            attrs['scanCallBackName'] = function(json) {
+                alert(json.data.carNo);
+            };
+            chelunJSBridge.invoke('ui', 'scanCarNo', attrs);
+        }, false);
+
+        //----------------------------namespace=data------------------------------------------------
+        /**
+         * 查询是否绑定手机号
+         */
+        var hadBoundPhone = document.getElementById('hadBoundPhone');
+        hadBoundPhone.addEventListener('click', function() {
+            var attrs = {};
+            attrs['callback'] = function(json) {
+                alert(json.data.code);
+            };
+            chelunJSBridge.invoke('data', 'hadBoundPhone', attrs);
+        }, false);
+
+        /**
+         * 强制客户端到服务端验证token（loading由前端处理），成功或失败都会回调
+         */
+        var verifyToken = document.getElementById('verifyToken');
+        verifyToken.addEventListener('click', function() {
+            var attrs = {};
+            attrs['verifyCallbackName'] = function(json) {
+                alert(json.data.token);
+            };
+            chelunJSBridge.invoke('data', 'verifyToken', attrs);
+        }, false);
+
+        //----------------------------namespace=device------------------------------------------------
+        /**
+         * 选取图片 ，目前只支持单张图片
+         */
+        var chooseImage = document.getElementById('chooseImage');
+        chooseImage.addEventListener('click', function() {
+            var attrs = {};
+            attrs['chooseCallbackName'] = function(json) {
+                alert(json.data.url);
+            };
+            chelunJSBridge.invoke('device', 'chooseImage', attrs);
+        }, false);
+
+        /**
+         * 获取定位 （如果用户一开始进入APP没有确认允许定位，再调用此方法，首先唤醒定位确认） 按照高德地图去整吧
+         */
+        var getLocation = document.getElementById('getLocation');
+        getLocation.addEventListener('click', function() {
+            var attrs = {};
+            attrs['locationCallBackName'] = function(json) {
+                alert(json.data.address);
+            };
+            chelunJSBridge.invoke('device', 'getLocation', attrs);
+        }, false);
+    </script>
+</body>
+</html>

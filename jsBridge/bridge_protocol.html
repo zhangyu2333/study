@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>chelun-jsbridge</title>
+    <link rel="stylesheet" href="css/basic.css"/>
+    <link rel="stylesheet" href="css/frozen.css"/>
+    <link rel="stylesheet" href="css/demo.css"/>
+    <script src="api-2.0.js"></script>
+    <script src="api-2.0-component.js"></script>
+</head>
+<body>
+    <header class="ui-header ui-header-positive ui-border-b">
+        <h1>通讯接口与车轮版协议</h1>
+    </header>
+    <section class="ui-container">
+        <p class="demo-desc">1. 通讯接口</p>
+        <div class="ui-code">
+            <p>伪协议规范：</p>
+            <p class="ui-txt-highlight">schema://namespace/method?arg1=v1&arg2=v2#v</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <tbody>
+            <tr>
+                <td>schema</td>
+                <td>协议名称</td>
+            </tr>
+            <tr>
+                <td>namespace</td>
+                <td>命名空间，如device，方便API管理</td>
+            </tr>
+            <tr>
+                <td>method</td>
+                <td>API的名称</td>
+            </tr>
+            <tr>
+                <td>arg1 v1等</td>
+                <td>分别对应API的参数名和取值</td>
+            </tr>
+            <tr>
+                <td>v</td>
+                <td>回调函数的序号，客户端在回调时统一调window下的一个函数</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">2. 车轮版协议</p>
+        <div class="ui-code">
+            <p>协议DEMO：</p>
+            <p class="ui-txt-highlight">chelunJSBridge://app/login#99</p>
+            <p>客户端调用callback函数：</p>
+            <p class="ui-txt-highlight">window['__MCL_CALLBACK_99']({result: 0,  data:{}, message: 'success' })</p>
+            <h6 class="ui-txt-info">data客户端返回的数据，有些接口才有</h6>
+            <h6 class="ui-txt-info">native返回的可能是string, web客户端做parseInt类型转换</h6>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+                <tr><th width="20%">result</th><th>说明</th><th width="30%">message</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>调用native成功</td>
+                    <td>success</td>
+                </tr>
+                <tr>
+                    <td>-404</td>
+                    <td>接口不存在</td>
+                    <td>cannot found this api</td>
+                </tr>
+                <tr>
+                    <td>-500</td>
+                    <td>接口存在客户端原因失败</td>
+                    <td>具体原因</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

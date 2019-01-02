@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>chelun-jsbridge</title>
+    <style>
+        * {margin:0;padding:0;}
+        body {
+            padding-bottom: 100px;
+        }
+        dl {
+            padding:0px 5%;
+        }
+        dt {
+            padding: 20px 0;
+        }
+        input[type="button"]{
+            padding:5px 10px;
+            font-size: 16px;
+        }
+        .button {
+            border:1px solid #000;
+            padding:20px 0;
+            font-size:16px;
+            margin:30px 0;
+            border-radius: 10px;
+        }
+    </style>
+    <script src="cl-api.js?a3"></script>
+</head>
+<body>
+<dl>
+    <dt>获取UA信息</dt>
+    <dd id="getua"></dd>
+</dl>
+
+<dl>
+    <dt>获取cookie信息</dt>
+    <dd id="getcookie"></dd>
+</dl>
+<dl>
+    <dt>是否显示右上角菜单按钮</dt>
+    <dd>window['CHELUN_SHOW_OPTION_MENU'] = <span id="num">1</span> //0不显示 1显示，整数， 默认显示</dd>
+
+</dl>
+<dl>
+    <dt>显示的功能按钮列表 </dt>
+    <dd>
+        <div id="oplist">
+            <p><label><input type="checkbox" value="menu:share:clMessage" />车轮车友</label></p>
+            <p><label><input type="checkbox" value="menu:share:wxMessage" />微信好友</label></p>
+            <p><label><input type="checkbox" value="menu:share:wxTimeline" />微信朋友圈</label></p>
+            <p><label><input type="checkbox" value="menu:share:qq" />腾讯QQ</label></p>
+            <p><label><input type="checkbox" value="menu:share:sina" />新浪微博</label></p>
+            <p><label><input type="checkbox" value="menu:share:sms" />短信</label></p>
+            <p><label><input type="checkbox" value="menu:copyUrl" />复制链接	</label></p>
+            <p><label><input type="checkbox" value="menu:openWithBrowser" />浏览器打开</label></p>
+            <p><label><input type="checkbox" value="menu:refresh" />刷新	</label></p>
+        </div>
+        <p><input id="opbtn" type="button" value="确定" /></p>
+        <p id="optxt"></p>
+    </dd>
+</dl>
+
+<dl>
+    <dt>分享给车轮好友的内容 CHELUN_SHARE_DATA_CLMESSAGE</dt>
+    <dd data-tag="CHELUN_SHARE_DATA_CLMESSAGE">
+			<textarea style="width:100%;height:130px">
+{
+	title: '分享给车轮好友标题', // 分享标题
+	desc: '分享给车轮好友的内容', // 分享描述
+	link: 'http://www.baidu.com?CHELUN_SHARE_DATA_CLMESSAGE', // 分享链接
+	imgUrl: 'http://img.sootuu.com/vector/2006-4/small_2006419175725626.jpg', // 分享图标
+	type: '', // 分享类型,music、video或link，不填默认为link
+	dataUrl: '' // 如果type是music或video，则要提供数据链接，默认为空
+}
+			</textarea>
+        <input class="share_btn" type="button" value="确定" />
+    </dd>
+</dl>
+<dl>
+    <dt>分享到微信朋友圈的内容 CHELUN_SHARE_DATA_WXTIMELINE</dt>
+    <dd data-tag="CHELUN_SHARE_DATA_WXTIMELINE">
+			<textarea style="width:100%;height:130px">
+{
+	title:'分享到微信朋友圈标题',//分享标题
+	link: 'http://www.baidu.com?CHELUN_SHARE_DATA_WXTIMELINE', // 分享链接
+	imgUrl: 'http://act.chelun.com/cl/api_test/2.jpg' // 分享图标
+}
+			</textarea>
+        <input class="share_btn" type="button" value="确定" />
+    </dd>
+</dl>
+<dl>
+    <dt>发送给微信好友的内容 CHELUN_SHARE_DATA_WXMESSAGE</dt>
+    <dd data-tag="CHELUN_SHARE_DATA_WXMESSAGE">
+			<textarea style="width:100%;height:130px">
+{
+	title: '发送给微信好友的标题', // 分享标题
+	desc: '发送给微信好友的描述', // 分享描述
+	link: 'http://www.baidu.com?CHELUN_SHARE_DATA_WXMESSAGE', // 分享链接
+	imgUrl: 'http://img.sootuu.com/vector/2006-4/small_2006419175725626.jpg', // 分享图标
+	type: '', // 分享类型,music、video或link，不填默认为link
+	dataUrl: '' // 如果type是music或video，则要提供数据链接，默认为空
+}
+			</textarea>
+        <input class="share_btn" type="button" value="确定" />
+    </dd>
+</dl>
+<dl>
+    <dt>分享到QQ的内容 CHELUN_SHARE_DATA_QQ</dt>
+    <dd data-tag="CHELUN_SHARE_DATA_QQ">
+			<textarea style="width:100%;height:130px">
+{
+	title: '分享到QQ的标题', // 分享标题
+	desc: '分享到QQ的描述', // 分享描述
+	link: 'http://www.baidu.com?CHELUN_SHARE_DATA_QQ', // 分享链接
+	imgUrl: 'http://img.sootuu.com/vector/2006-4/small_2006419175725626.jpg' // 分享图标
+}
+			</textarea>
+        <input class="share_btn" type="button" value="确定" />
+    </dd>
+</dl>
+<dl>
+    <dt>分享到新浪微博的内容 CHELUN_SHARE_DATA_SINA</dt>
+    <dd data-tag="CHELUN_SHARE_DATA_SINA">
+			<textarea style="width:100%;height:130px">
+{
+	title: '分享到新浪微博的标题', // 分享标题
+	desc: '分享到新浪微博的内容描述', // 分享描述
+	link: 'http://www.baidu.com?CHELUN_SHARE_DATA_SINA', // 分享链接
+	imgUrl: 'http://img.sootuu.com/vector/2006-4/small_2006419175725626.jpg' // 分享图标
+}
+			</textarea>
+        <input class="share_btn" type="button" value="确定" />
+    </dd>
+</dl>
+<dl>
+    <dt>发短信内容 CHELUN_SHARE_DATA_SMS</dt>
+    <dd data-tag="CHELUN_SHARE_DATA_SMS">
+			<textarea style="width:100%;height:130px">
+{
+	title: '短信短信内容CHELUN_SHARE_DATA_SMS' // 短信内容
+}
+			</textarea>
+        <input class="share_btn" type="button" value="确定" />
+    </dd>
+</dl>
+<form action="/">
+    <input type="file" style="padding:20px;font-size:30px; background:#ccc;" name="file" />
+</form>
+<div class="button" onclick="loginfn()">cl_api.app.login(fn) 这个按钮传入了callback 仅做演示</div>
+<div class="button" onclick="isAppInstalled('ios','chelun')">车轮社区	isAppInstalled('ios','chelun')</div>
+<div class="button" onclick="isAppInstalled('ios','autopaiwz')">车轮查违章	isAppInstalled('ios','autopaiwz')</div>
+<div class="button" onclick="isAppInstalled('ios','chelunwelfare')">车主福利大全	isAppInstalled('ios','chelunwelfare')</div>
+<div class="button" onclick="isAppInstalled('ios','chelunkjz')">车轮考驾照-学员端	isAppInstalled('ios','chelunkjz')</div>
+<div class="button" onclick="isAppInstalled('ios','drivingcoach')">车轮考驾照-教练端	isAppInstalled('ios','drivingcoach')</div>
+<div class="button" onclick="isAppInstalled('android','cn.eclicks.chelun')">isAppInstalled('android','cn.eclicks.chelun')</div>
+<div class="button" onclick="isAppInstalled('android','cn.eclicks.wzsearch')">isAppInstalled('android','cn.eclicks.wzsearch')</div>
+<div class="button" onclick="isAppInstalled('android','cn.eclicks.chelunwelfare')">isAppInstalled('android','cn.eclicks.chelunwelfare')</div>
+<div class="button" onclick="isAppInstalled('android','cn.eclicks.drivingtest')">isAppInstalled('android','cn.eclicks.drivingtest')</div>
+<div class="button" onclick="isAppInstalled('android','cn.eclicks.coach')">isAppInstalled('android','cn.eclicks.coach')</div>
+
+<div class="button" onclick="share('clMessage')">cl_api.share('clMessage')</div>
+<div class="button" onclick="share('wxTimeline')">cl_api.share('wxTimeline')</div>
+<div class="button" onclick="share('qq')">cl_api.share('qq')</div>
+<div class="button" onclick="share('sina')">cl_api.share('sina')</div>
+<div class="button" onclick="share('sms')">cl_api.share('sms')</div>
+
+<div class="button" onclick="openWithBrowser('http://www.baidu.com/')">cl_api.ui.openWithBrowser('http://www.baidu.com/')</div>
+<div class="button" onclick="cl_api.ui.refresh()">cl_api.ui.refresh()</div>
+<div class="button" onclick="bindWeixin()">cl_api.ui.bindWeixin()</div>
+<div class="button" onclick="bindPhone()">cl_api.ui.bindPhone()</div>
+<!--
+<div class="button" onclick="hadBoundWeixin()">cl_api.data.hadBoundWeixin()</div>
+-->
+<div class="button" onclick="hadBoundPhone()">cl_api.data.hadBoundPhone()</div>
+<div class="button" onclick="verifyToken()">cl_api.data.verifyToken()</div>
+<div class="button" onclick="scanQRCode()">cl_api.ui.scanQRCode()</div>
+<dl>
+    <dt>使用 scheme(ios)  或者 包名(andorid)启动一个app</dt>
+    <dd>
+        <input type="text" value="chelunwelfare" id="launchAppVal" />
+        <br>
+        <input class="aaaa" onclick="launchApp()" type="button" value="确定" />
+    </dd>
+</dl>
+
+<dl>
+    <dt>复制到剪切板</dt>
+    <dd>
+        <input type="text" value="复制这段文字" id="copyText" />
+        <br>
+        <input class="aaaa" onclick="copytext()" type="button" value="确定" />
+    </dd>
+</dl>
+<div class="button" onclick="chooseImage()">选取图片cl_api.device.chooseImage()</div>
+<div class="button" onclick="getLocation()">获取地点cl_api.device.getLocation()</div>
+<dl>
+    <dt>根据车牌号查询车辆是否违章cl_api.device.hadEncounteredViolation()</dt>
+    <dd>
+        <input type="text" value="输入车牌号" id="hadEncounteredViolation" />
+
+        <input type="text" value="车辆类型" id="carType" />
+        <input type="text" value="输入时间" id="startTime" />
+        <input type="text" value="结束时间" id="EndTime" />
+        <br>
+        <input class="aaaa" onclick="hadEncounteredViolation()" type="button" value="确定" />
+    </dd>
+</dl>
+<div class="button" onclick="addCar()">获取地点cl_api.cwz.addCar()</div>
+<div class="button" onclick="fetchCarList()">查询当前用户绑定的车辆信息列表cl_api.cwz.fetchCarList()</div>
+
+<div class="button"><a id="links" href="###">查违章油卡活动本机调试，不知道干嘛的不要点 :)</a></div>
+<div class="button"><a href="http://act.chelun.com/cl/api_test/index.html?123321">本机的jsapi :)</a></div>
+<script>
+    var parseQueryString = function() {
+        var params = {}
+        var temp = window.location.search.split(/\?|\&|\//);
+        for (var i = 0; i < temp.length; i++) {
+            var currentParam = temp[i].split("=");
+            if (currentParam.length === 2) {
+                params[currentParam[0]] = decodeURIComponent(currentParam[1]);
+            }
+        }
+        return params;
+    }
+    function fetchCarList(){
+        cl_api.cwz.fetchCarList({
+            fetchCallBackName:function(res){
+                alert('hello fetchCallBackName:' + JSON.stringify(res))
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    }
+    function addCar(){
+        cl_api.cwz.addCar({
+            addCallBackName:function(res){
+                alert('hello addCallBackName:' + JSON.stringify(res))
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    }
+    function hadEncounteredViolation(){
+        cl_api.cwz.hadEncounteredViolation({
+            carNo:document.getElementById('hadEncounteredViolation').value,
+            carType:document.getElementById('carType').value,
+            EndTime:document.getElementById('EndTime').value,
+            startTime:document.getElementById('startTime').value,
+            violationCallBackName:function(res){
+                alert('hello violationCallBackName:' + JSON.stringify(res))
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    }
+    function getLocation(){
+
+        cl_api.device.getLocation({
+            type:0,
+            locationCallBackName:function(res){
+                alert('hello locationCallBackName:' + JSON.stringify(res))
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    }
+    function chooseImage(){
+        cl_api.device.chooseImage({
+            type:0,
+            chooseCallbackName:function(res){
+                alert('hello chooseCallbackName:' + JSON.stringify(res))
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    }
+    function copytext(){
+        cl_api.ui.copy({
+            text:document.getElementById('copyText').value,
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    }
+    function launchApp(){
+        cl_api.app.launchApp({
+            name:document.getElementById('launchAppVal').value,
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    };
+    function loginfn(){
+        cl_api.app.login({
+            loginCallBackName:function(res){
+                alert('loginCallBackName : ' + JSON.stringify(res));
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    };
+
+    function isAppInstalled(arg,name){
+        cl_api.app.isAppInstalled({
+            os:arg,
+            name:name,
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    };
+
+    function share(arg){
+        cl_api.share({
+            to:arg,
+            shareCallBackName:function(res){
+                alert('shareCallBackName : ' + JSON.stringify(res));
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        })
+    };
+
+    function openWithBrowser(url){
+        cl_api.ui.openWithBrowser({
+            url:url,
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    };
+
+    function bindWeixin(){
+        cl_api.ui.bindWeixin({
+            bindCallBackName:function(res){
+                alert('bindCallBackName : ' + JSON.stringify(res));
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        })
+    };
+
+    function bindPhone(){
+        cl_api.ui.bindPhone({
+            bindCallBackName:function(res){
+                alert('bindCallBackName : ' + JSON.stringify(res));
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        });
+    };
+    /*
+     function hadBoundWeixin(){
+     cl_api.data.hadBoundWeixin({
+     callback:function(res){
+     alert('hello callback:' + JSON.stringify(res))
+     }
+     })
+     };
+     */
+
+    function hadBoundPhone(){
+        cl_api.data.hadBoundPhone({
+
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        })
+    };
+
+    function verifyToken(){
+        cl_api.data.verifyToken({
+            verifyCallbackName:function(res){
+                alert('verifyCallbackName : ' + JSON.stringify(res));
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        })
+    };
+
+
+    function scanQRCode(){
+        cl_api.ui.scanQRCode({
+            scanCallBackName:function(res){
+                alert('scanCallBackName : ' + JSON.stringify(res));
+                window.location.href=res.data.value;
+            },
+            callback:function(res){
+                alert('hello callback:' + JSON.stringify(res))
+            }
+        })
+    };
+
+
+    window.onload = function(){
+
+        var links = document.getElementById('links');
+        links.href = "http://h5dev.eclicks.cn/cwz/qiandao/?" + Math.random();
+        try{
+
+
+            var obtn = document.getElementById('opbtn');
+            var num = document.getElementById('num');
+            if(parseQueryString().oplist){
+                window['CHELUN_SHOW_MENU_ITEMS'] = parseQueryString().oplist.split(',');
+            };
+
+            document.getElementById('optxt').innerHTML = "window['CHELUN_SHOW_MENU_ITEMS'] = [" + window['CHELUN_SHOW_MENU_ITEMS'] + "]";
+
+            obtn.onclick = function(){
+                var olist = document.getElementById('oplist').getElementsByTagName('input');
+                window['CHELUN_SHOW_MENU_ITEMS'] = [];
+                var str = '?oplist=';
+                for(var i = 0, l = olist.length; i < l; i++){
+                    if(olist[i].checked){
+                        window['CHELUN_SHOW_MENU_ITEMS'].push(olist[i].value);
+                    }
+                }
+                str += window['CHELUN_SHOW_MENU_ITEMS'].join(',');
+                if(window['CHELUN_SHOW_MENU_ITEMS'].length === 0){
+                    str = '';
+                };
+                window.location.href = window.location.href.split('?')[0] + str;
+            };
+
+            var share_btn = document.body.getElementsByClassName('share_btn');
+
+            for(var i = 0 , l = share_btn.length; i < l; i++){
+                share_btn[i].onclick = function(){
+                    var el = this.parentNode,
+                            txt = el.getElementsByTagName('textarea')[0].value,
+                            key = el.getAttribute('data-tag');
+                    window[key] = eval("(" + txt + ")");
+                };
+            };
+
+            document.getElementById('getcookie').innerHTML = cl_api.cookie();
+            document.getElementById('getua').innerHTML = cl_api.getua();
+
+            var par = parseQueryString();
+            if(par.menu){
+                window['CHELUN_SHOW_OPTION_MENU'] = par.menu;
+                num.innerHTML = par.menu;
+            }
+
+        }catch(e){
+            alert(e.message);
+        };
+    };
+</script>
+</body>
+</html>

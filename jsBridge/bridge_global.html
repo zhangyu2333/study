@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>chelun-jsbridge</title>
+    <link rel="stylesheet" href="css/basic.css"/>
+    <link rel="stylesheet" href="css/frozen.css"/>
+    <link rel="stylesheet" href="css/demo.css"/>
+    <script src="api-2.0.js"></script>
+    <script src="api-2.0-component.js"></script>
+</head>
+<body>
+<header class="ui-header ui-header-positive ui-border-b">
+    <h1>全局变量</h1>
+</header>
+    <section class="ui-container">
+        <p class="demo-desc">1. 是否显示右上角菜单按钮</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHOW_OPTION_MENU'</span>] = <span style="color: rgb(0,0,255);">1 </span>
+            <p class="ui-txt-info">0：不显示 1：显示【默认】</p>
+        </div>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="menu">ss</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">2. 显示的功能按钮列表</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'</span><span style="color: rgb(0,128,0);">CHELUN_SHOW_MENU_ITEMS</span><span style="color: rgb(0,128,0);">'</span>] =  []
+            <p class="ui-txt-info">数组内容见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+             <tr><th width="40%">渠道</th><th>key</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>车轮车友</td>
+                    <td>menu:share:clMessage</td>
+                </tr>
+                <tr>
+                    <td>微信好友</td>
+                    <td>menu:share:wxMessage</td>
+                </tr>
+                <tr>
+                    <td>微信朋友圈</td>
+                    <td>menu:share:wxTimeline</td>
+                </tr>
+                <tr>
+                    <td>腾讯QQ</td>
+                    <td>menu:share:qq</td>
+                </tr>
+                <tr>
+                    <td>新浪微博</td>
+                    <td>menu:share:sina</td>
+                </tr>
+                <tr>
+                    <td>短信</td>
+                    <td>menu:share:sms</td>
+                </tr>
+                <tr>
+                    <td>复制链接</td>
+                    <td>menu:copyUrl</td>
+                </tr>
+                <tr>
+                    <td>浏览器打开</td>
+                    <td>menu:openWithBrowser</td>
+                </tr>
+                <tr>
+                    <td>刷新</td>
+                    <td>menu:refresh</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="menus">设置所有菜单</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">3. 车轮车友分享内容</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHARE_DATA_CLMESSAGE'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">对象属性见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+                <tr><th width="40%">key</th><th>value</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>title</td>
+                    <td>分享标题</td>
+                </tr>
+                <tr>
+                    <td>desc</td>
+                    <td>分享描述</td>
+                </tr>
+                <tr>
+                    <td>link</td>
+                    <td>分享链接</td>
+                </tr>
+                <tr>
+                    <td>imgUrl</td>
+                    <td>分享图标</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>分享类型【music、video、link】默认link</td>
+                </tr>
+                <tr>
+                    <td>dataUrl</td>
+                    <td>如果type是music或video，则要提供数据链接，默认为空</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">4. 微信朋友圈分享内容</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHARE_DATA_WXTIMELINE'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">对象属性见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+                <tr><th width="40%">key</th><th>value</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>title</td>
+                    <td>分享标题</td>
+                </tr>
+                <tr>
+                    <td>link</td>
+                    <td>分享链接</td>
+                </tr>
+                <tr>
+                    <td>imgUrl</td>
+                    <td>分享图标【注意：iOS老版拼错了，拼成imageUrl，如果对老版本支持请多复制一个key】</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>分享类型【music、video、link、photo】默认link，photo是分享大图</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="wxTimeline">设置微信朋友圈分享参数</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">5. 微信好友分享</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHARE_DATA_WXMESSAGE'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">对象属性见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+            <tr><th width="40%">key</th><th>value</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>title</td>
+                <td>分享标题</td>
+            </tr>
+            <tr>
+                <td>desc</td>
+                <td>分享描述</td>
+            </tr>
+            <tr>
+                <td>link</td>
+                <td>分享链接</td>
+            </tr>
+            <tr>
+                <td>imgUrl</td>
+                <td>分享图标</td>
+            </tr>
+            <tr>
+                <td>type</td>
+                <td>分享类型【music、video、link、photo】默认link，photo是分享大图</td>
+            </tr>
+            <tr>
+                <td>dataUrl</td>
+                <td>如果type是music或video，则要提供数据链接，默认为空</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="wxMessage">分享给微信好友</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">6. QQ好友分享内容</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHARE_DATA_QQ'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">对象属性见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+            <tr><th width="40%">key</th><th>value</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>title</td>
+                <td>分享标题</td>
+            </tr>
+            <tr>
+                <td>desc</td>
+                <td>分享描述</td>
+            </tr>
+            <tr>
+                <td>link</td>
+                <td>分享链接</td>
+            </tr>
+            <tr>
+                <td>imgUrl</td>
+                <td>分享图标</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="qq">分享给QQ好友</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">7. 新浪微博分享内容</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHARE_DATA_SINA'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">对象属性见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+            <tr><th width="40%">key</th><th>value</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>title</td>
+                    <td>分享标题</td>
+                </tr>
+                <tr>
+                    <td>desc</td>
+                    <td>分享描述</td>
+                </tr>
+                <tr>
+                    <td>link</td>
+                    <td>分享链接</td>
+                </tr>
+                <tr>
+                    <td>imgUrl</td>
+                    <td>分享图标</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="ui-table-colspan">BUG：Android 5.7.4以下取了分享朋友圈的变量</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="sina">分享到新浪微博</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">8. 发短信内容</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_SHARE_DATA_SMS'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">对象属性见下表</p>
+        </div>
+        <table class="ui-table ui-border-tb">
+            <thead>
+            <tr><th width="40%">key</th><th>value</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>title</td>
+                <td>短信内容</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn ui-btn-danger" type="button" id="sms">发送短信</button>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">9. 自定义配置</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_CUSTOM_CONFIG'</span>] = {}<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">key、value都是字符串</p>
+            <p class="ui-txt-info">如果要传字典、数组等，请使用json字符串自行解析</p>
+        </div>
+    </section>
+    <section class="ui-container">
+        <p class="demo-desc">10. 禁止拼系统参数的url配置列表</p>
+        <div class="ui-code">
+            <span style="color: rgb(102,14,122);">window</span>[<span style="color: rgb(0,128,0);">'CHELUN_DISSYS_URLLIST'</span>] = []<br><span style="color: rgb(128,128,128);">&nbsp;</span>
+            <p class="ui-txt-info">例如"$http://pay.chelun.com"</p>
+            <p class="ui-txt-info">支持正则，忽略大小写</p>
+        </div>
+    </section>
+    <script>
+        var share_url = 'http://app.qq.com/#id=detail&appid=100733767';
+        var share_img = 'http://h5.eclicks.cn/com/gohome/img/bluetail.png';
+        /**
+         * 菜单事件
+         */
+        var menu = document.getElementById('menu');
+        var menu_name = chelunApi.consts.SHOW_MENU;
+        window[menu_name] = ~~localStorage.getItem(menu_name);//取出的是string
+        function menu_html(){
+            menu.innerHTML = window[menu_name]===0 ? '显示菜单' : '隐藏菜单';
+        }
+        menu_html();
+        menu.addEventListener('click', function() {
+            var menu_name_value = ~~localStorage.getItem(menu_name);
+            if(menu_name_value === 0) {
+                chelunApi.showMenu();
+                localStorage.setItem(menu_name, 1);
+            }else {
+                chelunApi.hideMenu();
+                localStorage.setItem(menu_name, 0);
+            }
+            menu_html();
+            location.reload();
+        }, false);
+
+        /**
+         * 设置所有菜单
+         */
+        var menus = document.getElementById('menus');
+        var menus_name = chelunApi.consts.MENU_ITEMS;
+        var menus_name2 = chelunApi.consts.MENU_ITEMS + '2';
+        window[menus_name] =  JSON.parse(localStorage.getItem(menus_name2));
+        function menus_html() {
+            menus.innerHTML = localStorage.getItem(menus_name) == 1 ? '设置默认菜单' : '设置所有菜单';
+        }
+        menus_html();
+        menus.addEventListener('click', function() {
+            if(localStorage.getItem(menus_name) == 1) {
+                chelunApi.setMenu(['menu:refresh']);
+                localStorage.setItem(menus_name, 0);
+            }else {
+                //加上'menu:share:clMessage'就会出错 TODO
+                chelunApi.setMenu(['menu:share:clMessage','menu:share:wxMessage', 'menu:share:wxTimeline','menu:share:qq', 'menu:share:sina', 'menu:share:sms','menu:copyUrl','menu:openWithBrowser','menu:refresh']);
+                localStorage.setItem(menus_name, 1);
+            }
+            menus_html();
+
+            localStorage.setItem(menus_name2, JSON.stringify(window[menus_name]));//缓存设置
+            location.reload();
+        }, false);
+
+        /**
+         * 分享给微信朋友圈
+         */
+        var wxTimeline = document.getElementById('wxTimeline');
+        wxTimeline.addEventListener('click', function() {
+            chelunApi.setShareWxTimeline({
+                title:'测试朋友圈标题',
+                link: share_url,
+                imgUrl: share_img
+            });
+            alert('参数设置成功，请选择朋友圈分享按钮');
+        }, false);
+
+        /**
+         * 分享给微信好友
+         */
+        var wxMessage = document.getElementById('wxMessage');
+        wxMessage.addEventListener('click', function() {
+            chelunApi.setShareWxMessage({
+                title:'测试微信好友标题',
+                desc:'测试微信好友内容说明',
+                link: share_url,
+                imgUrl: share_img
+            });
+            alert('参数设置成功，请选择微信分享按钮');
+        }, false);
+
+        /**
+         * 分享给QQ好友
+         */
+        var qq = document.getElementById('qq');
+        qq.addEventListener('click', function() {
+            chelunApi.setShareQQ({
+                title:'测试QQ好友标题',
+                desc:'测试QQ好友内容说明',
+                link: share_url,
+                imgUrl: share_img
+            });
+            alert('参数设置成功，请选择QQ分享按钮');
+        }, false);
+
+        /**
+         * 分享到新浪微博
+         */
+        var sina = document.getElementById('sina');
+        //无法跳转到新浪微博 TODO
+        sina.addEventListener('click', function() {
+            chelunApi.setShareSina({
+                title:'测试新浪微博标题',
+                desc:'测试新浪微博内容说明',
+                link: share_url,
+                imgUrl: share_img
+            });
+            alert('参数设置成功，请选择新浪微博按钮');
+        }, false);
+
+        /**
+         * 发送短信内容
+         */
+        var sms = document.getElementById('sms');
+        sms.addEventListener('click', function() {
+            chelunApi.setShareSms({
+                title:'测试短信内容'
+            });
+            alert('参数设置成功，请选择短信按钮');
+        }, false);
+    </script>
+</body>
+</html>

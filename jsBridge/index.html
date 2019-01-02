@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<title>chelun-jsbridge</title>
+	<link rel="stylesheet" href="css/basic.css"/>
+	<link rel="stylesheet" href="css/frozen.css"/>
+	<link rel="stylesheet" href="css/demo.css"/>
+	<script src="api-2.0.js"></script>
+</head>
+<body>
+<header class="ui-header ui-header-positive ui-border-b">
+	<h1>JSBridge</h1>
+</header>
+<section class="ui-container">
+	<ul class="ui-list ui-list-pure ui-border-b" id="list">
+		<li class="ui-border-t" data-href="bridge_ua.html">获取UA信息</li>
+		<li class="ui-border-t" data-href="bridge_cookie.html">获取Cookie信息</li>
+		<li class="ui-border-t" data-href="bridge_global.html">全局变量</li>
+		<li class="ui-border-t" data-href="bridge_protocol.html">通讯接口与车轮版协议</li>
+		<li class="ui-border-t" data-href="bridge_interface.html">通用接口列表</li>
+		<li class="ui-border-t" data-href="bridge_interface_cwz.html">查违章专用接口</li>
+	</ul>
+</section>
+<script>
+	//        var hrefs = document.querySelectorAll('[data-href]');
+	//        var forEach = Array.prototype.forEach;
+	//        forEach.call(hrefs, function(href) {
+	//            href.addEventListener('click', function() {
+	//                location.href = this.getAttribute('data-href');
+	//            });
+	//        });
+
+	var list = document.getElementById('list');
+	list.addEventListener('click', function(e) {
+		if(e.target.hasAttribute('data-href'))
+			location.href = e.target.getAttribute('data-href');
+	}, false);
+</script>
+</body>
+</html>
