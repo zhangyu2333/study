@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <button @click="login">登陆</button> -->
     <div class="title">
       <div class="active">定单提交</div>
       <div>填写收货地址</div>
@@ -11,7 +10,6 @@
   </div>
 </template>
 <script>
-// import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 const JSBridge = require('./utils/JSBridge');
 export default {
    name: 'app',
@@ -23,21 +21,6 @@ export default {
 
   },
   methods : {
-    // ...mapMutations({
-    //   changeNum:'indexStore/changeNum'
-    // }),
-    // ...mapActions({
-    //   changeNumAsync:'indexStore/changeNumAsync'
-    // }),
-    // changeNum(type){
-    //   // this.$store.commit({
-    //   //   type:"indexStore/changeNum",
-    //   //   payload:type
-    //   // })
-    //   this.changeNumAsync(type).then(res => {
-    //     console.log('你可算完成了');
-    //   })
-    // }
     login(){
       chelunJSBridge.invoke('app', 'login', {
         loginCallBackName: res=>{
@@ -47,12 +30,7 @@ export default {
     }
   },
   computed: {
-    // ...mapState({
-    //   num:state=>state.indexStore.num
-    // }),
-    // ...mapGetters({
-    //   formatNum:'indexStore/formatNum'
-    // })
+
   }
 }
 </script>

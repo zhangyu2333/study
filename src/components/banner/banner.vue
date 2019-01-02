@@ -1,13 +1,13 @@
 <template>
     <mt-swipe :auto="30000">
         <mt-swipe-item>
-            <img src="http://localhost:8080/src/assets/banner@3x.png" alt="">
+            <img src="http://localhost:8081/src/assets/banner@3x.png" alt="">
         </mt-swipe-item>
         <mt-swipe-item>
-            <img src="http://localhost:8080/src/assets/banner@3x.png" alt="">
+            <img src="http://localhost:8081/src/assets/banner@3x.png" alt="">
         </mt-swipe-item>
         <mt-swipe-item>
-            <img src="http://localhost:8080/src/assets/banner@3x.png" alt="">
+            <img src="http://localhost:8081/src/assets/banner@3x.png" alt="">
         </mt-swipe-item>
     </mt-swipe>
 </template>

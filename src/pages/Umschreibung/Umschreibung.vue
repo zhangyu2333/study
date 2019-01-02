@@ -3,7 +3,25 @@
         <div class="banner">
             <Banner></Banner>
         </div>
-        <ul>
+        <div class="upload">
+            <ul>
+                <li v-for="(item,index) in upload" :key="index">
+                    <div @click="show_Eg(index)">
+                        <img :src="addImg" alt="">
+                    </div>
+                    <span>{{item.desc}}</span>
+                </li>
+                <div v-show="showMark" class="mark">
+                    <img :src="current.pic">
+                    <div>
+                        <button @click="uploads(1)">拍照</button>
+                        <button @click="uploads(2)">相册</button>
+                        <button @click="cancel">取消</button>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <ul class="sel">
             <li @click="selectMold(0)">
                 <p>服务类型</p>
                 <span>换驾照></span>
@@ -52,6 +70,8 @@
 </template>
 <script>
 import Vue from 'vue';
+import add from '@/assets/add.png';
+import { mapState } from 'vuex';
 import Banner from '../../components/banner/banner';
 import { Picker,Popup } from 'mint-ui';
 Vue.component(Popup.name, Popup);
@@ -61,6 +81,8 @@ export default {
         return {
             popupVisible:false,
             selectIndex:0,
+            showMark:false,
+            current:{},
             slots: [[
                 {
                     flex: 1,
@@ -90,10 +112,28 @@ export default {
     components: {
         Banner
     },
+    computed: {
+        addImg(){
+            return add
+        },
+        ...mapState({
+            upload:state=>state.upload.uploadList
+        })
+    },
     methods: {
         selectMold(index){
             this.selectIndex = index;
             this.popupVisible = true;
+        },
+        show_Eg(index){
+            this.current = this.upload[index];
+            this.showMark = true;
+        },
+        uploads(){
+
+        },
+        cancel(){
+            this.showMark = false;
         },
         onValuesChange(){
 
@@ -112,7 +152,60 @@ export default {
         width: 100%;
         height:3rem;
     }
-    ul{
+    .upload{
+        width: 100%;
+        height:px2rem(100px);
+        background: #fff;
+        margin-top:px2rem(10px);
+        >ul{
+            width: 100%;
+            height:100%;
+            display: flex;
+            justify-content: space-around;
+            padding:px2rem(10px) 0;
+            li{
+                width: 16%;
+                height:px2rem(80px);
+                >div{
+                    width: 100%;
+                    height: px2rem(50px);
+                    border:1px solid rgba(153, 153, 153, 0.692);
+                    padding:px2rem(5px) px2rem(10px);
+                    border-radius: px2rem(10px);
+                    img{
+                        width: 100%;
+                        height:auto;
+                    }
+                }
+            }
+            .mark{
+                position: absolute;
+                top:0;
+                left:0;
+                width: 100%;
+                height:100%;
+                z-index: 200;
+                text-align: center;
+                img{
+                    width: 80%;
+                    height:auto;
+                    transform: translateY(50px);
+                    &.active{
+                        transform: translateY(-110%);
+                    }
+                }
+                >div{
+                    display: flex;
+                    flex-direction: column;
+                    button{
+                        width: 100%;
+                        height:px2rem(30px)；
+                    }
+                }
+            }
+        }
+    }
+    .sel{
         width: 100%;
         padding-left:px2rem(10px);
         background: #fff;
