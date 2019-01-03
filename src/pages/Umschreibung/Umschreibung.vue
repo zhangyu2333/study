@@ -11,9 +11,9 @@
                     </div>
                     <span>{{item.desc}}</span>
                 </li>
-                <div v-show="showMark" class="mark">
-                    <img :src="current.pic">
-                    <div>
+                <div :class="showMark? 'mark active':'mark'">
+                    <img :src="current.pic"  :class="showMark? 'active':''">
+                    <div :class="showMark? 'active':''">
                         <button @click="uploads(1)">拍照</button>
                         <button @click="uploads(2)">相册</button>
                         <button @click="cancel">取消</button>
@@ -181,25 +181,43 @@ export default {
             .mark{
                 position: absolute;
                 top:0;
-                left:0;
+                left:100%;
                 width: 100%;
                 height:100%;
                 z-index: 200;
                 text-align: center;
+                background: rgba(34, 34, 34, 0);
+                transition: all 0.3s;
+                &.active{
+                    background: rgba(34, 34, 34, 0.7);
+                    left:0;
+                }
                 img{
                     width: 80%;
                     height:auto;
-                    transform: translateY(50px);
+                    transition: all 0.3s;
+                    transform: translateY(-110%);
                     &.active{
-                        transform: translateY(-110%);
+                        transform: translateY(50px);
                     }
                 }
                 >div{
-                    display: flex;
-                    flex-direction: column;
+                    transition: all 0.3s;
+                    position: absolute;
+                    bottom:0;
+                    width: 100%;
+                    overflow: hidden;
+                    transform: translateY(110%);
+                    &.active{
+                        transform: translateY(0);
+                    }
                     button{
                         width: 100%;
-                        height:px2rem(30px)；
+                        line-height: px2rem(40px);
+                        background: #fff;
+                        border:0;
+                        outline: none;
+                        font-size: px2rem(18px);
                     }
                 }
             }
