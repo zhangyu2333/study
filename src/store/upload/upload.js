@@ -26,7 +26,13 @@ const state = {
         desc: '白底半身照'
     }]
 }
+const mutations = {
+    updateUploadList(state, payload){
+        state.uploadList[payload.index].src = payload.src
+    }
+}
 export default {
     namespaced: true,
+    mutations,
     state
 }

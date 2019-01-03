@@ -7,7 +7,8 @@
             <ul>
                 <li v-for="(item,index) in upload" :key="index">
                     <div @click="show_Eg(index)">
-                        <img :src="addImg" alt="">
+                        <img v-if="item.src" :src="item.src">
+                        <img v-else class="add" :src="addImg">
                     </div>
                     <span>{{item.desc}}</span>
                 </li>
@@ -24,14 +25,14 @@
         <ul class="sel">
             <li @click="selectMold(0)">
                 <p>服务类型</p>
-                <span>换驾照></span>
+                <span>{{type}}></span>
             </li>
             <li @click="selectMold(1)">
                 <p>
                     <span>当前驾照签发城市</span>
 
                 </p>
-                <p>请选择签发地</p>
+                <p>{{address}}</p>
             </li>
             <li @click="selectMold(2)">
                 <span>可补换的签发城市</span>
@@ -62,7 +63,7 @@
             v-model="popupVisible"
             position="bottom"
         >
-            <mt-picker :slots="slots[selectIndex]" @change="onValuesChange"></mt-picker>
+            <mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
         </mt-popup>
         
     </div>
@@ -71,42 +72,26 @@
 <script>
 import Vue from 'vue';
 import add from '@/assets/add.png';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
+import {uploadImg,cityList} from '@/api/index';
 import Banner from '../../components/banner/banner';
 import { Picker,Popup } from 'mint-ui';
 Vue.component(Popup.name, Popup);
 Vue.component(Picker.name, Picker);
 export default {
+    created () {
+        this.getCityList()
+    },
     data () {
         return {
             popupVisible:false,
             selectIndex:0,
             showMark:false,
             current:{},
-            slots: [[
-                {
-                    flex: 1,
-                    values: ['换驾照', '补驾照'],
-                    className: 'slot1',
-                    textAlign: 'center'
-                }
-            ],[
-                {
-                    flex: 1,
-                    values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
-                    className: 'slot1',
-                    textAlign: 'right'
-                }, {
-                    divider: true,
-                    content: '-',
-                    className: 'slot2'
-                }, {
-                    flex: 1,
-                    values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
-                    className: 'slot3',
-                    textAlign: 'left'
-                }
-            ],],
+            type:"换驾照",
+            cityList:[],
+            slots: [],
+            address:"请选择签发地"
         }
     },
     components: {
@@ -121,22 +106,70 @@ export default {
         })
     },
     methods: {
+        ...mapMutations({
+            updateUploadList:'upload/updateUploadList'
+        }),
         selectMold(index){
             this.selectIndex = index;
             this.popupVisible = true;
+            console.log(this.cityList)
+            if( index === 0 ){
+                this.slots = [
+                    {
+                        values: ['换驾照', '补驾照'],
+                    }
+                ]
+            }else if( index === 1 ){
+                this.slots = [
+                    {
+                        values: this.cityList.map(item=>item.name),
+                    },
+                    {    
+                        values: this.cityList[0].list.map(item=>item.name),
+                    }
+                ]
+            }
+            console.log(this.slots)
         },
-        show_Eg(index){
+        show_Eg(index){ 
             this.current = this.upload[index];
             this.showMark = true;
         },
-        uploads(){
-
+        async uploads(type){
+            let res = await uploadImg(type);
+            if (res.result == 1){
+                this.updateUploadList({
+                    src: res.data.url,
+                    index: this.upload.findIndex(item=>item==this.current)
+                })
+                this.showMark = false;
+            }else{
+                alert('上传图片失败');
+            }
+            console.log('res...', res);
         },
         cancel(){
             this.showMark = false;
         },
-        onValuesChange(){
-
+        //获取城市列表
+        async getCityList(){
+            let res = await cityList();
+                res.data.forEach(item=>{
+                item.list.forEach(value=>{
+                    delete value.list;
+                })
+            })
+            this.cityList = res.data;
+        },
+        onValuesChange(picker, values){
+            if( !this.selectIndex ){
+                this.type = values[0];
+            }else if(this.selectIndex===1){
+                let obj = this.cityList.filter(item=>item.name===values[0])[0].list;
+                let cityArr = obj.map(item=>item.name);
+                picker.setSlotValues(1, cityArr)
+                this.address = values[1]
+            }
         }
     },
 }
@@ -163,6 +196,7 @@ export default {
             display: flex;
             justify-content: space-around;
             padding:px2rem(10px) 0;
+            overflow: hidden;
             li{
                 width: 16%;
                 height:px2rem(80px);
@@ -181,16 +215,18 @@ export default {
             .mark{
                 position: absolute;
                 top:0;
-                left:100%;
+                left:0;
                 width: 100%;
                 height:100%;
                 z-index: 200;
                 text-align: center;
+                visibility: hidden;
                 background: rgba(34, 34, 34, 0);
                 transition: all 0.3s;
                 &.active{
                     background: rgba(34, 34, 34, 0.7);
                     left:0;
+                    visibility: visible;
                 }
                 img{
                     width: 80%;

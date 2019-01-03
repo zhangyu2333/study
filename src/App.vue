@@ -38,6 +38,7 @@ export default {
   @import './common/css/common.scss';
   body{
     background: #eee;
+    overflow: hidden;
   }
   .title{
     width:100%;
