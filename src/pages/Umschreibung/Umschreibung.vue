@@ -32,15 +32,15 @@
                     <span>当前驾照签发城市</span>
 
                 </p>
-                <p>{{address}}</p>
+                <p>{{address.join('')}}</p>
             </li>
             <li @click="selectMold(2)">
                 <span>可补换的签发城市</span>
-                <span>请选择补换地</span>
+                <span>{{carAddress.join('')}}</span>
             </li>
             <li>
                 <p>服务费</p>
-                <div>￥399</div>
+                <div>￥{{money}}</div>
             </li>
         </ul>
         <div class="discounts">
@@ -55,7 +55,7 @@
                 <span>
                     实付:
                 </span>
-                399
+                {{money}}
             </div>
             <p>立即支付</p>
         </footer>
@@ -63,7 +63,9 @@
             v-model="popupVisible"
             position="bottom"
         >
-            <mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
+            <mt-picker :slots="slots" :showToolbar="showToolbar" @change="onValuesChange">
+
+            </mt-picker>
         </mt-popup>
         
     </div>
@@ -72,7 +74,7 @@
 <script>
 import Vue from 'vue';
 import add from '@/assets/add.png';
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import {uploadImg,cityList} from '@/api/index';
 import Banner from '../../components/banner/banner';
 import { Picker,Popup } from 'mint-ui';
@@ -87,11 +89,12 @@ export default {
             popupVisible:false,
             selectIndex:0,
             showMark:false,
+            showToolbar:true,
             current:{},
             type:"换驾照",
-            cityList:[],
             slots: [],
-            address:"请选择签发地"
+            address:["请选择签发地"],
+            carAddress:["请选择补换地"]
         }
     },
     components: {
@@ -102,17 +105,25 @@ export default {
             return add
         },
         ...mapState({
-            upload:state=>state.upload.uploadList
+            upload:state=>state.upload.uploadList,
+            cityList:state=>state.picker.cityList,
+            costList:state=>state.picker.costList,
+            city:state=>state.picker.city,
+            money:state=>state.picker.money
         })
     },
     methods: {
         ...mapMutations({
-            updateUploadList:'upload/updateUploadList'
+            updateUploadList:'upload/updateUploadList',
+            updateState: 'picker/updateState'
         }),
-        selectMold(index){
+        ...mapActions({
+            getCityList:"picker/getCityList",
+            getCarCityList:"picker/getCarCityList"
+        }),
+        async selectMold(index){
             this.selectIndex = index;
             this.popupVisible = true;
-            console.log(this.cityList)
             if( index === 0 ){
                 this.slots = [
                     {
@@ -128,8 +139,17 @@ export default {
                         values: this.cityList[0].list.map(item=>item.name),
                     }
                 ]
+            }else if(index === 2){
+                await this.getCarCityList()
+                this.slots = [
+                    {
+                        values: this.costList.map(item=>item.name)
+                    },
+                    {
+                        values: this.costList[0].list.map(item=>item.name)
+                    }
+                ]
             }
-            console.log(this.slots)
         },
         show_Eg(index){ 
             this.current = this.upload[index];
@@ -146,20 +166,9 @@ export default {
             }else{
                 alert('上传图片失败');
             }
-            console.log('res...', res);
         },
         cancel(){
             this.showMark = false;
-        },
-        //获取城市列表
-        async getCityList(){
-            let res = await cityList();
-                res.data.forEach(item=>{
-                item.list.forEach(value=>{
-                    delete value.list;
-                })
-            })
-            this.cityList = res.data;
         },
         onValuesChange(picker, values){
             if( !this.selectIndex ){
@@ -168,9 +177,16 @@ export default {
                 let obj = this.cityList.filter(item=>item.name===values[0])[0].list;
                 let cityArr = obj.map(item=>item.name);
                 picker.setSlotValues(1, cityArr)
-                this.address = values[1]
+                this.address = values
+                this.updateState({city: this.address})
+            }else{
+                let obj = this.costList.filter(item=>item.name===values[0])[0].list;
+                let cityArr = obj.map(item=>item.name);
+                picker.setSlotValues(1, cityArr)
+                this.carAddress = values
+                this.updateState({cost: values})
             }
-        }
+        },
     },
 }
 </script>
@@ -259,6 +275,7 @@ export default {
             }
         }
     }
+    
     .sel{
         width: 100%;
         padding-left:px2rem(10px);
@@ -276,6 +293,9 @@ export default {
             >div{
                 color:red
             }
+        }
+        .picker-toolbar{
+            display: flex;
         }
     }
     .discounts{
