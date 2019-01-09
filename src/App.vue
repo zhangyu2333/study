@@ -1,16 +1,17 @@
 <template>
   <div>
     <div class="title">
-      <div class="active">定单提交</div>
-      <div>填写收货地址</div>
-      <div>正在办理</div>
-      <div>办理完成</div>
+      <div :class="activeIndex===0?'active':''">定单提交</div>
+      <div :class="activeIndex===1?'active':''">填写收货地址</div>
+      <div :class="activeIndex===2?'active':''">正在办理</div>
+      <div :class="activeIndex===3?'active':''">办理完成</div>
     </div>
     <router-view></router-view>
   </div>
 </template>
 <script>
 const JSBridge = require('./utils/JSBridge');
+import { mapState } from 'vuex';
 export default {
    name: 'app',
     data () {
@@ -30,7 +31,9 @@ export default {
     }
   },
   computed: {
-
+    ...mapState({
+      activeIndex:state=>state.indexStore.activeIndex
+    })
   }
 }
 </script>

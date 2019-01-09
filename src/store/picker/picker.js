@@ -1,35 +1,31 @@
 import {cityList,costList} from '@/api/index';
 
 const state = {
-
+    cityinit:[],
     cityList: [],
-
     costList: [],
-
     city: [],
-
     cost: [],
 
-    money: ''
+    money: '399'
 }
 
 const mutations = {
     updateState(state, action){
         if (Object.keys(action)[0] == 'cost'){
             let value = action.cost;
-            console.log(value)
             let proIndex = state.costList.findIndex(item=>item.name==value[0]),
             cityIndex = state.costList[proIndex].list.findIndex(item=>item.name==value[1]);
-            
             state.money = state.costList[proIndex].list[cityIndex].cost;
-            console.log(state.money)
         }
         state = Object.assign(state, action);
     }
 }
 const actions = {
-    async getCityList({commit}){
+    async getCityList({commit,state}){
         let res = await cityList();
+            state.cityinit = JSON.parse(JSON.stringify(res.data));
+            console.log(state.cityinit)
             res.data.forEach(item=>{
             item.list.forEach(value=>{ 
                 delete value.list;

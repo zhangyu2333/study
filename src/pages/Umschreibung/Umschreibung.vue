@@ -48,7 +48,7 @@
             <p>></p>
         </div>
         <div class="more_discounts">
-            <a href=""><u>常见问题</u></a>
+            <router-link to="/doc"><u>常见问题</u></router-link>
         </div>
         <footer>
             <div>
@@ -57,7 +57,7 @@
                 </span>
                 {{money}}
             </div>
-            <p>立即支付</p>
+            <p :class="pay?'active':''" @click="goAddress">立即支付</p>
         </footer>
         <mt-popup
             v-model="popupVisible"
@@ -86,6 +86,9 @@ export default {
     },
     data () {
         return {
+            card:false,
+            cityListValue:false,
+            costListValue:false,
             popupVisible:false,
             selectIndex:0,
             showMark:false,
@@ -110,7 +113,10 @@ export default {
             costList:state=>state.picker.costList,
             city:state=>state.picker.city,
             money:state=>state.picker.money
-        })
+        }),
+        pay(){
+            return this.card && this.cityListValue && this.costListValue
+        }
     },
     methods: {
         ...mapMutations({
@@ -130,6 +136,7 @@ export default {
                         values: ['换驾照', '补驾照'],
                     }
                 ]
+                this.card = true;
             }else if( index === 1 ){
                 this.slots = [
                     {
@@ -139,6 +146,7 @@ export default {
                         values: this.cityList[0].list.map(item=>item.name),
                     }
                 ]
+                this.cityListValue = true;
             }else if(index === 2){
                 await this.getCarCityList()
                 this.slots = [
@@ -149,6 +157,7 @@ export default {
                         values: this.costList[0].list.map(item=>item.name)
                     }
                 ]
+                this.costListValue = true;
             }
         },
         show_Eg(index){ 
@@ -187,6 +196,15 @@ export default {
                 this.updateState({cost: values})
             }
         },
+        goAddress(){
+            // if(!this.pay) return
+            this.$router.push({
+                path:'/writeAddress',
+                query:{
+                    id:1
+                }
+            })
+        }
     },
 }
 </script>

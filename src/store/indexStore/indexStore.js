@@ -1,10 +1,14 @@
 const state = {
-    num:10000
+    num:10000,
+    activeIndex:0
 }
 
 const mutations = {
     changeNum(state,action){
         state.num = action === '+'? ++state.num : --state.num;
+    },
+    changeActiveIndex(state,action){
+        state.activeIndex = action.index
     }
 }
 
