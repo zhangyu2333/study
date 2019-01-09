@@ -1,5 +1,5 @@
 import JSBridge from '@/utils/JSBridge.js';
-
+import axios from 'axios';
 function sendRequest(url, method = 'GET', data = {}) {
     let params = {
         method
@@ -46,4 +46,17 @@ export let cityList = ()=>{
 export let costList = (...params)=>{
     console.log(params)
     return sendRequest(`/api/ExchangeJiaZhao/getCostList?order_type=${params[0]}&province_id=${params[1]}city_id&=${params[2]}`);
+}
+
+export let canvasImg = () => {
+    return axios({
+                method: 'post',
+                url: 'http://123.206.55.50:11000/tobase64',
+                data: {url: 'http://img.hb.aicdn.com/ecf0e9b44c91393b7d49bc1a8ff639b805f9df024f9ac-iQieFK_fw658'}
+            }).then(body=>{
+                console.log('body...', body.data.data.base64);
+                return body.data.data.base64
+            }).catch(e=>{
+                console.log('e..', e);
+            })
 }

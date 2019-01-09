@@ -26,7 +26,7 @@
         <div class="packet" @click="showMask">
             <img src="@/assets/ee-icon.png" alt="">
         </div>
-        <button class="goWork">确认</button>
+        <button class="goWork" @click="goWorking">确认</button>
         <mt-popup
             v-model="popupVisible"
             position="bottom"
@@ -114,6 +114,14 @@ export default {
                 }
             })
             
+        },
+        goWorking(){
+            this.$router.push({
+                path:'/upload',
+                query:{
+                    id:2
+                }
+            })
         }
     },
     computed: {
